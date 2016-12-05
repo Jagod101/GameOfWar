@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
-public class DiscardDeck
+public class discardDeck
 {
     private ArrayList<Integer> discardDeck;
 
-    public DiscardDeck()
+    public discardDeck()
     {
         discardDeck = new ArrayList<>();
     }
