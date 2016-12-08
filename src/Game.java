@@ -2,8 +2,13 @@ public class Game
 {
     public static void main(String[] args)
     {
-        Board b1 = newBoard();
+        Board b = new Board();
 
-        System.out.print(deck1);
+        b.getDeck1().shuffleCards();
+        b.getDeck2().shuffleCards();
+
+
+
+
     }
 }
