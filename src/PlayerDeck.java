@@ -12,7 +12,7 @@ public class PlayerDeck {
         {
             deck.add(i);
         }
-        deck.shuffleCards();
+        shuffleCards();
     }
 
     public void shuffleCards()
