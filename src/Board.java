@@ -129,6 +129,7 @@ public class Board {
         while(deck1.size() != 0 && deck2.size() != 0) {
             System.out.println("Deck 1 size: " + deck1.size());
             System.out.println("Deck 2 size: " + deck2.size());
+            System.out.println("");
             playCard1 = deck1.get(0);
             playCard2 = deck2.get(0);
             numBattles++;
@@ -165,8 +166,9 @@ public class Board {
     {
         ArrayList<Integer> warDeck1 = new ArrayList<>();
         ArrayList<Integer> warDeck2 = new ArrayList<>();
-        int play1;
-        int play2;
+        ArrayList<Integer> tempDeck = new ArrayList<>();
+        int play1 = 0;
+        int play2 = 0;
         boolean keepGoing = true;
 
         while(keepGoing) {
@@ -178,18 +180,11 @@ public class Board {
                 warDeck1.add(deck1.get(0));
                 warDeck1.add(deck1.get(1));
                 play1 = warDeck1.get(1);
-            } else if (deck1.size() == 3) {
+            } else if (deck1.size() >= 3) {
                 warDeck1.add(deck1.get(0));
                 warDeck1.add(deck1.get(1));
                 warDeck1.add(deck1.get(2));
                 play1 = warDeck1.get(2);
-
-            } else if(deck1.size() > 3) {
-                warDeck1.add(deck1.get(0));
-                warDeck1.add(deck1.get(1));
-                warDeck1.add(deck1.get(2));
-                warDeck1.add(deck1.get(3));
-                play1 = warDeck1.get(3);
             }
 
             if (deck2.size() == 1) {
@@ -199,26 +194,26 @@ public class Board {
                 warDeck2.add(deck2.get(0));
                 warDeck2.add(deck2.get(1));
                 play2 = warDeck2.get(1);
-            } else if (deck2.size() == 3) {
+            } else if (deck2.size() >= 3) {
                 warDeck2.add(deck2.get(0));
                 warDeck2.add(deck2.get(1));
                 warDeck2.add(deck2.get(2));
                 play2 = warDeck2.get(2);
-            } else if(deck2.size() > 3) {
-                warDeck2.add(deck2.get(0));
-                warDeck2.add(deck2.get(1));
-                warDeck2.add(deck2.get(2));
-                warDeck2.add(deck2.get(3));
-                play2 = warDeck2.get(3);
             }
 
             if (play1 > play2) {
                 deck1.addAll(warDeck2);
                 deck2.removeAll(warDeck2);
+                tempDeck.addAll(warDeck1);
+                deck1.remove(warDeck1);
+                deck1.addAll(tempDeck);
                 keepGoing = false;
             } else if (play2 > play1) {
                 deck2.addAll(warDeck1);
                 deck1.removeAll(warDeck1);
+                tempDeck.addAll(warDeck2);
+                deck2.remove(warDeck2);
+                deck2.addAll(tempDeck);
                 keepGoing = false;
             } else if (play1 == play2) {
                 keepGoing = true;
