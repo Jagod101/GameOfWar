@@ -56,6 +56,13 @@ public class Board {
 
     public int playCard(ArrayList<Integer> deck, int deckNumber)
     {
+        if(deckNumber == 1) return deck1.get(0);
+        else
+        {
+            return deck2.get(0);
+        }
+
+        /*
         int origIndex;
         int tempIndex;
 
@@ -107,6 +114,7 @@ public class Board {
         }
 
         return 0;
+       */
     }
 
 
@@ -116,24 +124,28 @@ public class Board {
     {
         int playCard1;
         int playCard2;
-        int origIndex;
+        int tempCard;
 
         while(deck1.size() != 0 && deck2.size() != 0) {
             System.out.println("Deck 1 size: " + deck1.size());
             System.out.println("Deck 2 size: " + deck2.size());
-            playCard1 = playCard(deck1, 1);
-            playCard2 = playCard(deck2, 2);
+            playCard1 = deck1.get(0);
+            playCard2 = deck2.get(0);
             numBattles++;
             if (playCard1 == playCard2) {
                 goToWar();
             }
             else if(playCard1 > playCard2) {
                 deck1.add(playCard2);
-                deck2.remove(playCard2);
+                deck2.remove(0);
+                tempCard = deck1.remove(0);
+                deck1.add(tempCard);
             }
             else if(playCard1 < playCard2) {
                 deck2.add(playCard1);
-                deck1.remove(playCard1);
+                deck1.remove(0);
+                tempCard = deck2.remove(0);
+                deck2.add(tempCard);
             }
         }
 
@@ -172,7 +184,7 @@ public class Board {
                 warDeck1.add(deck1.get(2));
                 play1 = warDeck1.get(2);
 
-            } else {
+            } else if(deck1.size() > 3) {
                 warDeck1.add(deck1.get(0));
                 warDeck1.add(deck1.get(1));
                 warDeck1.add(deck1.get(2));
@@ -192,8 +204,7 @@ public class Board {
                 warDeck2.add(deck2.get(1));
                 warDeck2.add(deck2.get(2));
                 play2 = warDeck2.get(2);
-
-            } else {
+            } else if(deck2.size() > 3) {
                 warDeck2.add(deck2.get(0));
                 warDeck2.add(deck2.get(1));
                 warDeck2.add(deck2.get(2));
