@@ -1,14 +1,19 @@
-import java.util.Collections;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 
+/**
+ * Created by Jayson on 12/15/2016.
+ */
 public class Board {
-
     private ArrayList<Integer> deck1;
     private ArrayList<Integer> deck2;
     private ArrayList<Integer> origDeck;
     private int playingIndex1;
     private int playingIndex2;
     private int numBattles = 0;
+    private int numDWars = 0;
+    private int numWars = 0;
 
 
     public Board() {
@@ -161,7 +166,7 @@ public class Board {
         return "";
     }
 
-
+    /*
     public void goToWar()
     {
         ArrayList<Integer> warDeck1 = new ArrayList<>();
@@ -169,24 +174,47 @@ public class Board {
         ArrayList<Integer> tempDeck = new ArrayList<>();
         int play1 = 0;
         int play2 = 0;
+        int index1 = 1;
+        int index2 = 1;
         boolean keepGoing = true;
+
+
+        //adds the current "war" card to each war deck
+        warDeck1.add(deck1.get(0));
+        warDeck2.add(deck2.get(0));
+
 
         while(keepGoing) {
 
             if (deck1.size() == 1) {
-                warDeck1.add(deck1.get(0));
                 play1 = warDeck1.get(0);
             } else if (deck1.size() == 2) {
-                warDeck1.add(deck1.get(0));
-                warDeck1.add(deck1.get(1));
-                play1 = warDeck1.get(1);
+                warDeck1.add(deck1.get(index1));
+                play1 = warDeck1.get(index1);
+                index1++;
             } else if (deck1.size() >= 3) {
-                warDeck1.add(deck1.get(0));
-                warDeck1.add(deck1.get(1));
-                warDeck1.add(deck1.get(2));
-                play1 = warDeck1.get(2);
+                warDeck1.add(deck1.get(index1));
+                warDeck1.add(deck1.get(index1 + 1));
+                warDeck1.add(deck1.get(index1 + 2));
+                play1 = warDeck1.get(index1 + 2);
+                index1 += 3;
             }
 
+            if (deck2.size() == 1) {
+                play2 = warDeck2.get(0);
+            } else if (deck2.size() == 2) {
+                warDeck2.add(deck2.get(index2));
+                play2 = warDeck2.get(index2);
+                index2++;
+            } else if (deck2.size() >= 3) {
+                warDeck2.add(deck2.get(index2));
+                warDeck2.add(deck2.get(index2 + 1));
+                warDeck2.add(deck2.get(index2 + 2));
+                play2 = warDeck2.get(index2 + 2);
+                index2 += 3;
+            }
+
+            /*
             if (deck2.size() == 1) {
                 warDeck2.add(deck2.get(0));
                 play2 = warDeck2.get(0);
@@ -200,7 +228,8 @@ public class Board {
                 warDeck2.add(deck2.get(2));
                 play2 = warDeck2.get(2);
             }
-
+            */
+/*
             if (play1 > play2) {
                 deck1.addAll(warDeck2);
                 deck2.removeAll(warDeck2);
@@ -219,9 +248,101 @@ public class Board {
                 keepGoing = true;
             }
         }
+        index1 = 0;
+        index2 = 0;
+    }
+    */
 
+    public void goToWar() {
+        numWars++;
+        ArrayList<Integer> warDeck1 = new ArrayList<>();
+        ArrayList<Integer> warDeck2 = new ArrayList<>();
+        ArrayList<Integer> tempDeck = new ArrayList<>();
+        int play1 = 0;
+        int play2 = 0;
+
+        if (deck1.size() == 1) {
+            warDeck1.add(deck1.get(0));
+            play1 = warDeck1.get(0);
+        } else if (deck1.size() == 2) {
+            warDeck1.add(deck1.get(0));
+            warDeck1.add(deck1.get(1));
+            play1 = warDeck1.get(1);
+        } else if (deck1.size() == 3) {
+            warDeck1.add(deck1.get(0));
+            warDeck1.add(deck1.get(1));
+            warDeck1.add(deck1.get(2));
+            play1 = warDeck1.get(2);
+        } else if (deck1.size() >= 3) {
+            warDeck1.add(deck1.get(0));
+            warDeck1.add(deck1.get(1));
+            warDeck1.add(deck1.get(2));
+            warDeck1.add(deck1.get(3));
+            play1 = warDeck1.get(3);
+        }
+
+        if (deck2.size() == 1) {
+            warDeck2.add(deck2.get(0));
+            play2 = warDeck2.get(0);
+        } else if (deck2.size() == 2) {
+            warDeck2.add(deck2.get(0));
+            warDeck2.add(deck2.get(1));
+            play2 = warDeck2.get(1);
+        } else if (deck2.size() == 3) {
+            warDeck2.add(deck2.get(0));
+            warDeck2.add(deck2.get(1));
+            warDeck2.add(deck2.get(2));
+            play2 = warDeck2.get(2);
+        } else if (deck2.size() >= 3) {
+            warDeck2.add(deck2.get(0));
+            warDeck2.add(deck2.get(1));
+            warDeck2.add(deck2.get(2));
+            warDeck2.add(deck2.get(3));
+            play2 = warDeck2.get(3);
+        }
+
+        if (play1 > play2) {
+            deck1.addAll(warDeck2);
+            deck2.subList(0, warDeck2.size()).clear();
+            tempDeck.addAll(warDeck1);
+            deck1.subList(0, warDeck1.size()).clear();
+            deck1.addAll(tempDeck);
+        } else if (play2 > play1) {
+            deck2.addAll(warDeck1);
+            deck1.subList(0, warDeck1.size()).clear();
+            tempDeck.addAll(warDeck2);
+            deck2.subList(0, warDeck2.size()).clear();
+            deck2.addAll(tempDeck);
+        }
+        //double war (incomplete)
+        else if(play1 == play2)
+        {
+            numDWars++;
+            deck2.addAll(warDeck1);
+            deck1.subList(0, warDeck1.size()).clear();
+            tempDeck.addAll(warDeck2);
+            deck2.subList(0, warDeck2.size()).clear();
+            deck2.addAll(tempDeck);
+        }
     }
 
 
 
+
+    public int getNumBattles()
+    {
+        return numBattles;
+    }
+
+    public int getNumDWars()
+    {
+        return numDWars;
+    }
+
+    public int getNumWars()
+    {
+        return numWars;
+    }
+
 }
+
