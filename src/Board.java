@@ -2,9 +2,6 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
-/**
- * Created by Jayson on 12/15/2016.
- */
 public class Board {
     private ArrayList<Integer> deck1;
     private ArrayList<Integer> deck2;

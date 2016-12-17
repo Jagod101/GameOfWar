@@ -49,13 +49,13 @@ public class Main {
             totNumDWars += b.getNumDWars();
         }
 
-        System.out.println(totBattles/1000);
-        System.out.println(totNumWars/1000);
-        System.out.println(totNumDWars/1000);
-        System.out.println(minNumWars);
-        System.out.println(maxNumWars);
-        System.out.println(minNumBattles);
-        System.out.println(maxNumBattles);
+        System.out.println("Total Battles: " + totBattles/1000);
+        System.out.println("Total Wars: " + totNumWars/1000);
+        System.out.println("Total Double Wars: " + totNumDWars/1000);
+        System.out.println("Minumum Wars: " + minNumWars);
+        System.out.println("Maximum Wars: " + maxNumWars);
+        System.out.println("Mininum Battles: " + minNumBattles);
+        System.out.println("Maximum Battles: " + maxNumBattles);
 
 
 
